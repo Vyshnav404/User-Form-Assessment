@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { signup, login } = require('../controller/userController');
-const { fileUpload ,getFile,deleteFile} = require('../controller/fileContoller');
+const { fileUpload ,getFile,deleteFile,downloadFile} = require('../controller/fileContoller');
 const multer = require('multer');
 const shortid = require('shortid');
 
@@ -22,5 +22,6 @@ router.post('/login', login);
 router.post('/upload', upload.single('file'), fileUpload);
 router.get('/getdata',getFile)
 router.delete('/delete',deleteFile)
+router.get('/download/:filename',downloadFile)
 
 module.exports = router;

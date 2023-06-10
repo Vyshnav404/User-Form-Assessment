@@ -53,10 +53,22 @@ const getFile = (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     }
   };
+
+  const downloadFile = (req, res) => {
+    const { filename } = req.params;
+    const filePath = path.join(__dirname, '..', 'uploads', filename);
+  
+    // Set the appropriate headers for the file download
+    res.setHeader('Content-Disposition', `attachment; filename=${filename}`);
+  
+    // Stream the file to the response
+    res.sendFile(filePath);
+  };
   
 
 module.exports = {
   fileUpload,
   getFile,
-  deleteFile
+  deleteFile,
+  downloadFile
 };

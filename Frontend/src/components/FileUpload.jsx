@@ -34,13 +34,15 @@ console.log(formData)
   };
 
   return (  
-    <div className='flex justify-center m-16'>
+    <div className='flex justify-around m-16'>
       <form encType='multipart/form-data'>
         <input type='file' onChange={handleFileChange} className='p-2 border-2 rounded-md' placeholder='Upload file' />
-        <button type='button' onClick={handleUpload} className='bg-blue-300 hover:bg-blue-400 text-white rounded px-2 mx-1'>
+        <button type='button' onClick={handleUpload} className='bg-blue-300 hover:bg-blue-400 text-white rounded p-3 px-2 mx-1'>
           Upload
         </button>
       </form>
+
+  
     </div>
   );
 }
