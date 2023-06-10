@@ -6,6 +6,9 @@ const db = require('./config/db')
 const userRouter = require('./routes/userRouter')
 const port = 8080;
 
+app.use(express.static('uploads'));
+app.use('/', express.static('images'));
+
 
 db(()=>{
     try{

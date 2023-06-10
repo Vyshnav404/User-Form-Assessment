@@ -1,36 +1,26 @@
 const express = require('express');
 const router = express.Router();
-const fs = require('fs');
 const { signup, login } = require('../controller/userController');
+const { fileUpload ,getFile,deleteFile} = require('../controller/fileContoller');
 const multer = require('multer');
 const shortid = require('shortid');
 
 const storage = multer.diskStorage({
   destination: 'uploads/',
   filename: (req, file, cb) => {
-    const uniqueCode = shortid.generate(); // Generate a unique code using shortid
-    const fileName = `${uniqueCode}-${file.originalname}`;
+    const uniqueCode = Math.floor(Math.random() * 900000) + 100000; // Generate a 6-digit random number
+    const extension = file.originalname.substring(file.originalname.lastIndexOf('.') + 1); // Get the file extension
+    const fileName = `${uniqueCode}.${extension}`; // Use the unique code and file extension in the filename
     cb(null, fileName);
   },
 });
-
 
 const upload = multer({ storage: storage });
 
 router.post('/signup', signup);
 router.post('/login', login);
-router.post('/upload', upload.single('file'), (req, res) => {
-  console.log("filename ",req.file)
-  const uniqueCode = req.file.filename.split('-')[0]; // Extract the generated code from the file name
-console.log('usnidiode ',uniqueCode)
-  fs.writeFile(`uploads/${req.file.filename}`, req.file.buffer, (err) => {
-    if (err) {
-      console.error(err);
-      res.sendStatus(500);
-    } else {
-      res.json({ code: uniqueCode, filename: req.file.filename });
-    }
-  });
-});
+router.post('/upload', upload.single('file'), fileUpload);
+router.get('/getdata',getFile)
+router.delete('/delete',deleteFile)
 
 module.exports = router;
