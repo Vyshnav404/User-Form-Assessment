@@ -22,7 +22,7 @@ function HomePage() {
 <Navbar/>
 
 <FileUpload getFiles={getFiles}/>
-<div className='grid grid-cols-4 '>
+<div className='grid grid-cols-4  '>
 <FIleCards data={data} getFiles={getFiles}/>
 </div>
 </>  
