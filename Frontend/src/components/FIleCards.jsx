@@ -4,7 +4,8 @@ import { AiOutlineDelete } from 'react-icons/ai';
 import { HiOutlineFolderDownload } from 'react-icons/hi';
 import { saveAs } from 'file-saver'
 
-function FileCards({ data, getFiles }) {
+function FileCards({ data, getFiles,userId }) {
+ 
   const [verificationCode, setVerificationCode] = useState('');
   const [showVerificationPopup, setShowVerificationPopup] = useState(false);
   const [selectedCard, setSelectedCard] = useState('');
@@ -15,8 +16,7 @@ function FileCards({ data, getFiles }) {
   },[])
   const handleRemove = async (card) => {
     try {
-      console.log(card, 'ddddddddddddddddd');
-      await axios.delete(`http://localhost:8080/api/delete`, { data: { card } });
+      await axios.delete(`http://localhost:8080/api/delete`, { data: { card , userId} });
       getFiles();
     } catch (error) {
       console.error(error);

@@ -9,7 +9,9 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
   },
-
+  uploadedFiles: [{
+    type: String,
+  }],
 });
 
 userSchema.methods.generateAuthToken = function () {
